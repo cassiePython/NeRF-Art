@@ -10,7 +10,7 @@ To be released soon.
 ### Installation
 Clone the repository:
 ```
-git clone https://github.com/songrise/NeRF-Art
+git clone https://github.com/cassiePython/NeRF-Art
 ```
 
 To install the dependencies, we recommend using [Anaconda](https://www.anaconda.com/products/individual) and run the following commands:
@@ -44,8 +44,8 @@ data/
 ...
 ```
 
-### [Optional] Using your own data
-Please refer to this file [data_guide.md](./data_guide.md) to process and use your own data.
+### [Optional] Using custom data
+Please refer to [data_guide.md](./data_guide.md) to process and use your own data.
 ### Pretrained Models
 Several pre-trained checkpoints are provided. Download them and put under `./pretrained` folder.  
 
@@ -55,7 +55,7 @@ Several pre-trained checkpoints are provided. Download them and put under `./pre
 
 ## Running the Code
 
-### Inference
+### Rendering
 Use following command for multiple views rendering, this should work for both NeuS and VolSDF. The results will be saved in the `./out` folder. Notice that, when rendering there must be corresponding scene data (imgs and cameras) under `./data` folder.
 
 ```
