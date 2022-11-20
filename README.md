@@ -1,6 +1,6 @@
 # Nerf-Art: Text-Driven Neural Radiance Fields Stylization
 
-### [Project Page](https://github.com/cassiePython/cassiepython.github.io) | [Paper (ArXiv)]() | [Data](https://drive.google.com/drive/folders/12zOhjv4CrUC-z3n4uF-qHNrT7doZcsVA?usp=share_link)
+### [Project Page](https://cassiepython.github.io/nerfart/index.html) | [Paper (ArXiv)]() | [Data](https://drive.google.com/drive/folders/12zOhjv4CrUC-z3n4uF-qHNrT7doZcsVA?usp=share_link)
 
 <img src="asset/placeholder.jpg">
 
