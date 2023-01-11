@@ -56,7 +56,7 @@ Several pre-trained checkpoints are provided. Download them and put under `./pre
 ## Running the Code
 
 ### Rendering
-Use following command for multiple views rendering, this should work for both NeuS and VolSDF. The results will be saved in the `./out` folder. Notice that, when rendering there must be corresponding scene data (imgs and cameras) under `./data` folder.
+Use following command for multiple views rendering, this should work for both NeuS and VolSDF. The results will be saved in the `./out` folder. Make sure that you have already downloaded and put the dataset (imgs and cameras) under `./data` folder before rendering.
 
 ```
 python render.py  --config ./configs/volsdf_fangzhou_vangogh.yaml \
