@@ -4,6 +4,8 @@
 
 <img src="asset/teaser.png">
 
+Nert-Art is accepted by TVCG. We plan to release training codes, pre-trained models, and face data in one week!
+
 ## Abstract
 As a powerful representation of 3D scenes, Neural radiance fields (NeRF) enable high-quality novel view synthesis given a set of multi-view images. Editing NeRF, however, remains challenging, especially on simulating a text-guided style with both the appearance and the geometry altered simultaneously. In this paper, we present NeRF-Art, a text-guided NeRF stylization approach that manipulates the style of a pre-trained NeRF model with a single text prompt. Unlike previous approaches that either lack sufficient geometry deformations and texture details or require meshes to guide the stylization, our method can shift a 3D scene to the new domain characterized by desired geometry and appearance variations without any mesh guidance. This is achieved by introducing a novel global-local contrastive learning strategy, combined with the directional constraint to simultaneously control both the trajectory and the strength of the target style. Moreover, we adopt a weight regularization method to effectively suppress the cloudy artifacts and the geometry noises when transforming the density field for geometry stylization. Through extensive experiments on various styles, our method is demonstrated to be effective and robust regarding both single-view stylization quality and cross-view consistency.
 ## Setup
