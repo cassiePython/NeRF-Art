@@ -1,10 +1,8 @@
 # Nerf-Art: Text-Driven Neural Radiance Fields Stylization
 
-### [Project Page](https://cassiepython.github.io/nerfart/index.html) | [Paper (ArXiv)](https://arxiv.org/abs/2212.08070) | [Data](https://drive.google.com/drive/folders/12zOhjv4CrUC-z3n4uF-qHNrT7doZcsVA?usp=share_link)
+### [Project Page](https://cassiepython.github.io/nerfart/index.html) | [Paper (ArXiv)](https://arxiv.org/abs/2212.08070) | [Paper (TVCG)](https://arxiv.org/abs/2212.08070) | [Download Models and Configs](https://portland-my.sharepoint.com/:f:/g/personal/cwang355-c_my_cityu_edu_hk/EuCfP0A3BJNItp72U_FxAicBXw_kXbcKgpaqUkeZBIwgQw?e=Vnvi48)
 
 <img src="asset/teaser.png">
-
-Nert-Art is accepted by TVCG. We plan to release training codes, pre-trained models, and face data in one week!
 
 ## Abstract
 As a powerful representation of 3D scenes, Neural radiance fields (NeRF) enable high-quality novel view synthesis given a set of multi-view images. Editing NeRF, however, remains challenging, especially on simulating a text-guided style with both the appearance and the geometry altered simultaneously. In this paper, we present NeRF-Art, a text-guided NeRF stylization approach that manipulates the style of a pre-trained NeRF model with a single text prompt. Unlike previous approaches that either lack sufficient geometry deformations and texture details or require meshes to guide the stylization, our method can shift a 3D scene to the new domain characterized by desired geometry and appearance variations without any mesh guidance. This is achieved by introducing a novel global-local contrastive learning strategy, combined with the directional constraint to simultaneously control both the trajectory and the strength of the target style. Moreover, we adopt a weight regularization method to effectively suppress the cloudy artifacts and the geometry noises when transforming the density field for geometry stylization. Through extensive experiments on various styles, our method is demonstrated to be effective and robust regarding both single-view stylization quality and cross-view consistency.
@@ -32,7 +30,7 @@ Alternatively, you can use `source setup_env.sh` to install the dependencies.
 
 
 ### Using our data
-Download the data from [here](https://drive.google.com/drive/folders/12zOhjv4CrUC-z3n4uF-qHNrT7doZcsVA?usp=share_link), extract and put each of them under `./data/`. They should be organized as follows:
+You can find the data in `./data/`. They should be organized as follows:
 ```
 
 data/
@@ -40,8 +38,6 @@ data/
     ├── images/
     ├── matte/
     ├── cameras.npz
-    ├── database.db
-    ├── pose_bounds.npy
     ...
 ...
 ```
@@ -62,14 +58,20 @@ Use following command for multiple views rendering, this should work for both Ne
 
 ```
 python render.py  --config ./configs/volsdf_fangzhou_vangogh.yaml \
---load_pt ./pretrained/volsdf_fangzhou_vangogh.pt --downscale 2 --H 480 --W 270 \
+--load_pt ./logs/volsdf_fangzhou_vangogh/ckpts/latest.pt \
+--downscale 2 --H 480 --W 270 \
 --exp_name volsdf_fangzhou_vangogh  --num_views 90  --save_images 
 ```
 For reference, it takes around 30 minutes to render 90 views on a single RTX 3090 GPU.
 
 
 ### Training
-To be released soon.
+
+```
+python -m train --config configs/volsdf_fangzhou_vangogh.yaml
+```
+
+You can find more configs and pretrained models in the downloaded files. 
 
 ## Others
 This implementation is based on [neurecon](https://github.com/ventusff/neurecon). Thanks for their great work.
