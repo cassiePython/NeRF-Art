@@ -74,4 +74,8 @@ python -m train --config configs/volsdf_fangzhou_vangogh.yaml
 You can find more configs and pretrained models in the downloaded files. 
 
 ## Others
+
+We have also applied our method on NeRF_pl without SDF. We will release this version after clearning the project. If you need it now, you can email to get a dirty copy. 
+
 This implementation is based on [neurecon](https://github.com/ventusff/neurecon). Thanks for their great work.
+
