@@ -83,7 +83,7 @@ finetune:
   # i_val_mesh: 30
 
   # use_eikonal: True
-  # pretrain_weight: "/home/wangcan/ruixiang/neurecon/logs/volsdf_fangzhou_nature/ckpts/final_00100000.pt"
+  # pretrain_weight: ""
   # src_text: "photo"
   # target_text: "Superman cartoon"
   # w_perceptual: 1.0

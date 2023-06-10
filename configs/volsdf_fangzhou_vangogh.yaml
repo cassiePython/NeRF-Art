@@ -76,7 +76,7 @@ finetune:
   i_val_mesh: 100
 
   use_eikonal: True
-  pretrain_weight: "/home/wangcan/ruixiang/neurecon/logs/volsdf_fangzhou_nature/ckpts/final_00100000.pt"
+  pretrain_weight: "./pretrained/volsdf_fangzhou_nature.pt"
   src_text: "photo"
   target_text: "painting, oil on canvas, Vincent van gogh self-portrait style"
   w_perceptual: 2.0

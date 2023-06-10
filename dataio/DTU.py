@@ -25,6 +25,8 @@ class SceneDataset(torch.utils.data.Dataset):
 
         image_dir = '{0}/images'.format(self.instance_dir)
         image_paths = sorted(glob_imgs(image_dir))
+
+        # actually, masks is only used for NeuS + Mask setting
         mask_dir = '{0}/matte'.format(self.instance_dir)
         mask_paths = sorted(glob_imgs(mask_dir))
 
@@ -52,7 +54,7 @@ class SceneDataset(torch.utils.data.Dataset):
             P = P[:3, :4]
             intrinsics, pose = load_K_Rt_from_P(P)
             cam_center_norms.append(np.linalg.norm(pose[:3,3]))
-            
+
             # downscale intrinsics
             intrinsics[0, 2] /= downscale
             intrinsics[1, 2] /= downscale

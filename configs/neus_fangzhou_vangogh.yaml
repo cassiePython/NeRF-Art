@@ -84,7 +84,7 @@ finetune:
   i_val_mesh: 60
 
   use_eikonal: True
-  pretrain_weight: "/home/wangcan/ruixiang/neurecon/logs/neus_fangzhou_masked_2/ckpts/00150000.pt"
+  pretrain_weight: "./pretrained/neus_fangzhou_masked.pt"
   src_text: "photo"
   target_text: "painting, oil on canvas, Vincent van gogh self-portrait style"
   w_perceptual: 1.1

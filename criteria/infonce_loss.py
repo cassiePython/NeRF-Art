@@ -92,5 +92,71 @@ class InforNCELoss(torch.nn.Module):
     def __init__(self):
         super(InforNCELoss, self).__init__()
 
-    def forward(self, x):
-        raise NotImplementedError
+        self.device = "cuda"
+        self.model, clip_preprocess = clip.load("ViT-B/32", device="cuda")
+        self.preprocess = transforms.Compose([transforms.Normalize(mean=[-1.0, -1.0, -1.0], std=[2.0, 2.0,
+                                                                                                 2.0])] +  # Un-normalize from [-1.0, 1.0] (GAN output) to [0, 1].
+                                             clip_preprocess.transforms[:2] +  # to match CLIP input scale assumptions
+                                             clip_preprocess.transforms[4:])  # + skip convert PIL to tensor
+        self.cos = nn.CosineSimilarity()
+        self.temperature = 0.07
+
+    def tokenize(self, strings: list):
+        return clip.tokenize(strings).to(self.device)
+
+    def encode_text(self, tokens: list) -> torch.Tensor:
+        return self.model.encode_text(tokens)
+
+    def encode_images(self, images: torch.Tensor) -> torch.Tensor:
+        images = self.preprocess(images).to(self.device)
+        return self.model.encode_image(images)
+
+    def get_image_features(self, img: torch.Tensor, norm: bool = True) -> torch.Tensor:
+        image_features = self.encode_images(img)
+
+        if norm:
+            image_features /= image_features.clone().norm(dim=-1, keepdim=True)
+
+        return image_features
+
+    def compose_text_with_templates(self, text: str, templates=imagenet_templates) -> list:
+        return [template.format(text) for template in templates]
+
+    def get_text_features(self, class_str: str, templates=imagenet_templates, norm: bool = True) -> torch.Tensor:
+        template_text = self.compose_text_with_templates(class_str, templates)
+
+        tokens = clip.tokenize(template_text).to(self.device)
+
+        text_features = self.encode_text(tokens).detach()
+
+        if norm:
+            text_features /= text_features.norm(dim=-1, keepdim=True)
+
+        return text_features
+
+    def clip_contrastive_loss(self, source_classes: list, target_img: torch.Tensor, target_class: str):
+        source_feature_list = []
+        for source in source_classes:
+            source_feature = self.get_text_features(source, norm=True)
+            source_feature_list.append(source_feature)
+
+        target_feature = self.get_text_features(target_class, norm=True)
+        target_encoding = self.get_image_features(target_img)
+
+        consine_distance_near = self.cos(target_encoding, target_feature.detach())
+
+        neg_texts_sum = 0
+        for source_feature in source_feature_list:
+            consine_distance_far_text = self.cos(target_encoding, source_feature.detach())
+            neg_text = torch.exp(consine_distance_far_text / self.temperature)
+            neg_texts_sum += neg_text
+
+        pos = torch.exp(consine_distance_near / self.temperature)
+        loss_contrastive = torch.mean(- torch.log(pos / (pos + neg_texts_sum)))
+
+        return loss_contrastive
+
+    def forward(self, source_classes: list, target_img: torch.Tensor, target_class: str):
+        loss = self.clip_contrastive_loss(source_classes, target_img, target_class)
+
+        return loss
